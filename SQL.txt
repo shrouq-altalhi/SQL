@@ -1,82 +1,74 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2706
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+create database store;
 
-\f0\fs24 \cf0 create database store;\
-\
-use store;\
-\
-\
-create table countries(\
-	code int  PRIMARY KEY,\
-    name varchar(20) unique,\
-    continent_name varchar(20) not null\
-);\
- \
- insert into countries  values (2,'h','ss');\
- update  countries set  continent_name='mmm' where code='1';\
-\
- \
-\
-create table users(\
-	id int PRIMARY KEY auto_increment,\
-	full_name varchar(20),\
-	email varchar(20) unique,\
-    gender char(1) check(gender="m" or gender="f"),\
-    date_of_birth varchar(15),\
-	created_at timestamp not null default CURRENT_TIMESTAMP,\
-    country_code int,\
-    foreign key (country_code) references countries(code)\
-);\
-\
-insert into users (full_name,email,gender,date_of_birth) values ('shrouq','shrouq@s.com','f','1993');\
-\
-\
-create table orders(\
-	id int PRIMARY KEY auto_increment,\
-    user_id int,\
-    status varchar(6) check(status="start" or status="finish"),\
-	created_at timestamp not null default CURRENT_TIMESTAMP,\
-	foreign key (user_id) references users(id)\
-);\
-\
-insert into orders (status) values ('finish');\
-\
-create table order_products(\
-	order_id int auto_increment ,\
-    product_id int,\
-    quantity int default 0,\
-	foreign key (order_id) references orders(id),\
-    foreign key (product_id) references products(id)\
-    \
-);\
-\
-\
-insert into order_products (quantity) values (2);\
-\
-\
-create table products(\
-	id int PRIMARY KEY auto_increment,\
-    price int default 0,\
-    name varchar(10) not null,\
-	status varchar(10) check(status="valid" or status="expired"),\
-	created_at timestamp not null default CURRENT_TIMESTAMP\
-);\
-\
-insert into products (price,name,status) values (200000,'xxxx','expired');\
-insert into products (price,name,status) values (8999,'sss','valid');\
-\
-delete from products where id=1;\
-\
-select * from countries;\
-select * from users;\
-select * from orders;\
-select * from order_products;\
-select * from products;\
-\
-\
-drop database store;\
-}
+use store;
+
+
+create table countries(
+	code int  PRIMARY KEY,
+    name varchar(20) unique,
+    continent_name varchar(20) not null
+);
+ 
+ insert into countries  values (2,'h','ss');
+ update  countries set  continent_name='mmm' where code='1';
+
+ 
+
+create table users(
+	id int PRIMARY KEY auto_increment,
+	full_name varchar(20),
+	email varchar(20) unique,
+    gender char(1) check(gender="m" or gender="f"),
+    date_of_birth varchar(15),
+	created_at timestamp not null default CURRENT_TIMESTAMP,
+    country_code int,
+    foreign key (country_code) references countries(code)
+);
+
+insert into users (full_name,email,gender,date_of_birth) values ('shrouq','shrouq@s.com','f','1993');
+
+
+create table orders(
+	id int PRIMARY KEY auto_increment,
+    user_id int,
+    status varchar(6) check(status="start" or status="finish"),
+	created_at timestamp not null default CURRENT_TIMESTAMP,
+	foreign key (user_id) references users(id)
+);
+
+insert into orders (status) values ('finish');
+
+create table order_products(
+	order_id int auto_increment ,
+    product_id int,
+    quantity int default 0,
+	foreign key (order_id) references orders(id),
+    foreign key (product_id) references products(id)
+    
+);
+
+
+insert into order_products (quantity) values (2);
+
+
+create table products(
+	id int PRIMARY KEY auto_increment,
+    price int default 0,
+    name varchar(10) not null,
+	status varchar(10) check(status="valid" or status="expired"),
+	created_at timestamp not null default CURRENT_TIMESTAMP
+);
+
+insert into products (price,name,status) values (200000,'xxxx','expired');
+insert into products (price,name,status) values (8999,'sss','valid');
+
+delete from products where id=1;
+
+select * from countries;
+select * from users;
+select * from orders;
+select * from order_products;
+select * from products;
+
+
+drop database store;
